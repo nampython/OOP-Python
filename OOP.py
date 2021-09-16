@@ -56,14 +56,13 @@ class Person():
         print(f"Adult: {age > 18}")
         print("-----------------------------")
 
-if __name__ == '__main__':
+def main_person():
     person_1 = Person("Nam", 21, "Quang binh", "0395371244") # Person Object
     person_2 = Person("Thin", 50, "Ho Chi Minh", "0395323123")
     person_3 = Person("Quang", 9, "Quang binh", "0395337211")
     # we can  make a class method to create  a Person object from this type of dictionary
     person_4 = Person.from_str("Quan, 10")
     person_5 = Person.from_dict({"name": "Hai", "age": 30})
-    
     person_1.display()
     person_1.display_species_of_Person()
     person_1.isAdult(21)
@@ -72,9 +71,11 @@ if __name__ == '__main__':
 
     person_1.set_name = "Dinh Quang Nam"
     print(person_1.get_name)
-
     person_1.set_age = 100
     print(person_1.get_age)
+
+if __name__ == '__main__':
+    main_person()
 
 # e1 = Employee('Jam', 'Smith', 1990, 6000) #  Employee object
 # # we will create  a class method name from_employe
