@@ -7,6 +7,26 @@ class Person():
         self.address = address # instance variable address
         self.phone = phone# instance variable phone
         Person.count_person += 1
+    @property
+    def get_name(self):
+        print("-------------------get_name method---------------------------")
+        return self.name
+    @get_name.setter
+    def set_name(self, new_name):
+        self.name = new_name
+
+    @property
+    def get_age(self):
+        print("-------------------get_age method---------------------------")
+        return self.age
+    @get_age.setter
+    def set_age(self, new_age):
+        if new_age <= 0:
+            raise ValueError("Age value is not negative")
+        else:
+            self.age = new_age
+        
+
     def display(self):
         print(f"I'm {self.name} \nI'm {self.age} year olds\nPhone: {self.phone}\nAddress: {self.address}")
     
@@ -50,6 +70,11 @@ if __name__ == '__main__':
     person_4.display()
     person_5.display()
 
+    person_1.set_name = "Dinh Quang Nam"
+    print(person_1.get_name)
+
+    person_1.set_age = 100
+    print(person_1.get_age)
 
 # e1 = Employee('Jam', 'Smith', 1990, 6000) #  Employee object
 # # we will create  a class method name from_employe
@@ -60,3 +85,5 @@ if __name__ == '__main__':
 # to make  a method that needs to access instance variables  ---> insance method
 # to make a method that needs to use only class variables --->  class method
 # to make a method that needs to use nether instance variable nor class variable ---> static method
+
+
