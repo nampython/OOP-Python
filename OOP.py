@@ -1,7 +1,22 @@
-class Person():
+import logging
+import os
+
+
+def create_logger():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    file_handler = logging.FileHandler("Demo.log", mode= "w")
+    file_handler.setFormatter(logging.Formatter(('%(asctime)s - %(levelname)s - %(message)s')))
+    logger.addHandler(file_handler)
+    return logger
+
+logger = create_logger()
+logger.info("Starting Program")
+
+class Person:
     species = "Human"
     count_person = 0
-    def __init__(self, name, age, address= None, phone= None):
+    def __init__(self, name= None, age= None, address= None, phone= None):
         self.name = name # instance variable name
         self.age = age # instance variable age
         self.address = address # instance variable address
@@ -9,7 +24,6 @@ class Person():
         Person.count_person += 1
     @property
     def get_name(self):
-        print("-------------------get_name method---------------------------")
         return self.name
     @get_name.setter
     def set_name(self, new_name):
@@ -17,7 +31,6 @@ class Person():
 
     @property
     def get_age(self):
-        print("-------------------get_age method---------------------------")
         return self.age
     @get_age.setter
     def set_age(self, new_age):
@@ -25,18 +38,15 @@ class Person():
             raise ValueError("Age value is not negative")
         else:
             self.age = new_age
-        
 
     def display(self):
-        print(f"I'm {self.name} \nI'm {self.age} year olds\nPhone: {self.phone}\nAddress: {self.address}")
+        print(f"Name: {self.get_name}\nAge: {self.get_age}\nAddress: {self.address}\nPhone: {self.phone}")
     
     @classmethod
     # if you want to only use class variable , you can make a class method 
     def display_species_of_Person(cls):
-        print("--------class method----------")
-        print(f"Species is {cls.species}")
-        print(f"The created person is {cls.count_person}")
-        print("-----------------------------")
+        logger.debug(f"Species is {cls.species}")
+        logger.debug(f"The created person is {cls.count_person}")
     @classmethod
     def from_str(cls, s):
         name, age = s.split(",")
@@ -52,30 +62,56 @@ class Person():
     @staticmethod
     #we can see that unlike  instance method and class methods, a static method does not have any special frist paramter.
     def isAdult(age):
-        print("--------static method----------")
         print(f"Adult: {age > 18}")
-        print("-----------------------------")
 
-def main_person():
-    person_1 = Person("Nam", 21, "Quang binh", "0395371244") # Person Object
-    person_2 = Person("Thin", 50, "Ho Chi Minh", "0395323123")
-    person_3 = Person("Quang", 9, "Quang binh", "0395337211")
-    # we can  make a class method to create  a Person object from this type of dictionary
-    person_4 = Person.from_str("Quan, 10")
-    person_5 = Person.from_dict({"name": "Hai", "age": 30})
-    person_1.display()
-    person_1.display_species_of_Person()
-    person_1.isAdult(21)
-    person_4.display()
-    person_5.display()
+    def name_check(self, name):
+        if os.path.exists('data.txt'):
+            with open('data.txt', mode= 'r') as readFile:
+                for line in readFile:
+                    if line.lower().startswith(f'name: {self.get_name}'):
+                        logger.error(f'Name: "{self.get_name}" already exists')
+                        return False
+                if len(self.get_name) == 0:
+                    logger.critical(f'Name cannot be blank')
+                    return False
+                elif not self.get_name.isalpha():
+                    logger.critical(f'Name must be an alphabet')
+                    return False
+                else:
+                    logger.debug('Check successfully')
+                    return True
+        else:
+            logger.debug("no data found !!!")
+            return False
 
-    person_1.set_name = "Dinh Quang Nam"
-    print(person_1.get_name)
-    person_1.set_age = 100
-    print(person_1.get_age)
+    def SavetoFile(self, name, age):
+        logger.debug(f'saving detals of {self.get_name} ...')
+        with open('data.txt', mode= 'a') as appendFile:
+            appendFile.writelines(f'Name: {self.get_name} - Age: {self.get_age}\n')
+            logger.debug('Details saved successfully !!')
 
-if __name__ == '__main__':
-    main_person()
+class Employee(Person):
+    
+    def __init__(self,name, age, address, phone, salary= None, office_address= None, office_phone= None):
+        super().__init__(name, age, address, phone)
+        self.salary = salary
+        self.office_address = office_address
+        self.office_phone = office_phone
+    def contact_details(self):
+        Person.display(self)
+        # super().display()
+        print(f'salary: {self.salary}\noffice_address: {self.office_address}\noffice_phone: {self.office_phone}')
+
+
+logger.info('Ending program !')
+
+
+
+# if __name__ == '__main__':
+#     # main_person()
+#     main_Employee()
+
+#     logger.info("Starting Program")
 
 # e1 = Employee('Jam', 'Smith', 1990, 6000) #  Employee object
 # # we will create  a class method name from_employe

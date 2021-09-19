@@ -1,13 +1,5 @@
-from practice_exercise import Fraction
-from practice_exercise import Book
-from practice_exercise import Product
-from practice_exercise import Circle
-from practice_exercise import SalesPerson
-from practice_exercise import Employee
-from practice_exercise import Stack
-from practice_exercise import Course
-from practice_exercise import VideoCourse
-from practice_exercise import PdfCourse
+from practice_exercise import Fraction, Book, Product, Circle, SalesPerson, Employee, Stack,Course, VideoCourse, PdfCourse
+
 def main_Fraction():
 	f1 = Fraction(4, 6)
 	f2 = Fraction(2, 4)
