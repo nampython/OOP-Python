@@ -1,17 +1,10 @@
-2021-09-19 22:43:24,385 - INFO - Starting Program
-2021-09-19 22:43:24,386 - INFO - Ending program !
-2021-09-19 22:43:24,386 - DEBUG - Check successfully
-2021-09-19 22:43:24,386 - DEBUG - saving detals of Nam ...
-2021-09-19 22:43:24,387 - DEBUG - Details saved successfully !!
-2021-09-19 22:43:24,395 - DEBUG - Check successfully
-2021-09-19 22:43:24,396 - DEBUG - saving detals of Thin ...
-2021-09-19 22:43:24,396 - DEBUG - Details saved successfully !!
-2021-09-19 22:43:24,402 - DEBUG - Check successfully
-2021-09-19 22:43:24,402 - DEBUG - saving detals of Quang ...
-2021-09-19 22:43:24,402 - DEBUG - Details saved successfully !!
-2021-09-19 22:43:24,408 - DEBUG - Check successfully
-2021-09-19 22:43:24,408 - DEBUG - saving detals of Quan ...
-2021-09-19 22:43:24,408 - DEBUG - Details saved successfully !!
-2021-09-19 22:43:24,414 - DEBUG - Check successfully
-2021-09-19 22:43:24,414 - DEBUG - saving detals of Hai ...
-2021-09-19 22:43:24,414 - DEBUG - Details saved successfully !!
+2021-09-20 20:37:02,071 - OOP.py - INFO - <module> - Starting Program
+2021-09-20 20:37:02,072 - OOP.py - INFO - <module> - Ending program !
+2021-09-20 20:37:02,072 - OOP.py - DEBUG - get_age - get age successfully !!
+2021-09-20 20:37:02,073 - OOP.py - DEBUG - set_age - set age successfully !!
+2021-09-20 20:37:02,073 - OOP.py - DEBUG - get_name - get name successfully !!
+2021-09-20 20:37:02,073 - OOP.py - DEBUG - get_age - get age successfully !!
+2021-09-20 20:37:02,073 - OOP.py - DEBUG - display - Name: Nam
+Age: 10
+Address: Quang binh
+Phone: 0395371244

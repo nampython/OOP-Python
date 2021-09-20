@@ -6,12 +6,21 @@ def create_logger():
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     file_handler = logging.FileHandler("Demo.log", mode= "w")
-    file_handler.setFormatter(logging.Formatter(('%(asctime)s - %(levelname)s - %(message)s')))
+    file_handler.setFormatter(logging.Formatter(('%(asctime)s - %(filename)s - %(levelname)s - %(funcName)s - %(message)s')))
     logger.addHandler(file_handler)
     return logger
 
 logger = create_logger()
 logger.info("Starting Program")
+
+class NameisNotValid(Exception):
+    def __init__(self, message, name):
+        self.message = message
+        self.name = name
+class AgeisnotNegative(Exception):
+    def __init__(self, message, age):
+        self.message = message
+        self.age = age
 
 class Person:
     species = "Human"
@@ -24,23 +33,30 @@ class Person:
         Person.count_person += 1
     @property
     def get_name(self):
+        logger.debug("get name successfully !!")
         return self.name
     @get_name.setter
     def set_name(self, new_name):
-        self.name = new_name
+        if self.name_check(new_name) is not True:
+            raise NameisNotValid("Name is not valid", new_name)
+        else:
+            self.name = new_name
+            logger.debug("set name successfully !!")
 
     @property
     def get_age(self):
+        logger.debug("get age successfully !!")
         return self.age
     @get_age.setter
     def set_age(self, new_age):
         if new_age <= 0:
-            raise ValueError("Age value is not negative")
+            raise AgeisnotNegative("Age is negative", new_age)
         else:
+            logger.debug("set age successfully !!")
             self.age = new_age
 
     def display(self):
-        print(f"Name: {self.get_name}\nAge: {self.get_age}\nAddress: {self.address}\nPhone: {self.phone}")
+        logger.debug(f"Name: {self.get_name}\nAge: {self.get_age}\nAddress: {self.address}\nPhone: {self.phone}")
     
     @classmethod
     # if you want to only use class variable , you can make a class method 
@@ -62,13 +78,13 @@ class Person:
     @staticmethod
     #we can see that unlike  instance method and class methods, a static method does not have any special frist paramter.
     def isAdult(age):
-        print(f"Adult: {age > 18}")
+        logger(f"Adult: {age > 18}")
 
     def name_check(self, name):
         if os.path.exists('data.txt'):
             with open('data.txt', mode= 'r') as readFile:
                 for line in readFile:
-                    if line.lower().startswith(f'name: {self.get_name}'):
+                    if line.lower().startswith(f'name: {self.get_name.lower()}'):
                         logger.error(f'Name: "{self.get_name}" already exists')
                         return False
                 if len(self.get_name) == 0:
@@ -82,7 +98,7 @@ class Person:
                     return True
         else:
             logger.debug("no data found !!!")
-            return False
+            return True
 
     def SavetoFile(self, name, age):
         logger.debug(f'saving detals of {self.get_name} ...')
@@ -100,7 +116,7 @@ class Employee(Person):
     def contact_details(self):
         Person.display(self)
         # super().display()
-        print(f'salary: {self.salary}\noffice_address: {self.office_address}\noffice_phone: {self.office_phone}')
+        logger(f'salary: {self.salary}\noffice_address: {self.office_address}\noffice_phone: {self.office_phone}')
 
 
 logger.info('Ending program !')
